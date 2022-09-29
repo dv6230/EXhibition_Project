@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "MyTicketList";
+}
+
+@section styles{
+    <link href="~/Content/myTicketList.css" rel="stylesheet" />
+}
+
+<div class="mt-3 p-5" id="contain">
+
+    <div class="d-flex mb-3">
+        <div class="d-inline-block w-50">
+            <h3 class="m-0">票券列表</h3>
+        </div>
+        @*<div class="d-inline-block w-50 d-flex justify-content-end m-0 p-0">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                    條件選擇
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li><a class="dropdown-item" href="#">全部</a></li>
+                    <li><a class="dropdown-item" href="#">可使用</a></li>
+                    <li><a class="dropdown-item" href="#">逾期</a></li>
+                </ul>
+            </div>
+        </div>*@
+    </div>
+
+
+    <!--  border-top-left-radius: 5px;border-bottom-left-radius: 5px; -->
+    <div class="row mb-4 boxShadow myTicketBox" v-for="item in dataset">
+        <!-- #ffcc00 -->
+        <div class="col-sm-3 p-0 m-0">
+            <img :src="item.image" class="ticketImg" alt="">
+        </div>
+        <div class="col-sm-9 pt-2 pb-2" style="padding-left: 15px" >
+            <h3>{{item.name}}</h3>
+            <hr>
+            <div class="mb-3">
+                <small class="w3-text-gray">日期</small>
+                <p class="mb-1">{{item.startdate}} - {{item.enddate}}</p>
+                <p class="badgeDefault" v-bind:class="[ badgeBackground(item.status) ]">
+                    <span>&#8226;</span>
+                    {{ CheckTicket(item.status) }}
+                </p>
+            </div>
+            <div class="col-sm-3 mt-auto">
+                <button v-on:click="goPage(item.ticketId)" class="w-100" style="color: #069ff1;line-height: 25px;border-radius: 5px;
+                                    border: 1px solid  #069ff1;background-color: white">
+                    查看票券
+                </button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+            crossorigin="anonymous"></script>
+    @*<script src="./js/jquery.qrcode.min.js"></script>*@
+
+    <script>
+        new Vue({
+            el: '#contain',
+            data() {
+                return {
+                    ticketStatus: 'over',
+                    badgeBg: {
+                        over: 'badgeOver',
+                        now: 'badgeNow',
+                        presale: 'badgePresale',
+                    },
+                    imgUrl: '/image/Test/reZero.png',
+                    dataRow: [1, 2, 3, 4, 5],
+                    dataset:[]
+                }
+            },
+            created: function () {
+                this.connectAxios();
+            },
+            methods: {
+                CheckTicket(value) {
+                    if (value.toUpperCase() === 'over'.toUpperCase()) {
+                        return '逾期票券';
+                    } else if (value.toUpperCase() === 'now'.toUpperCase()) {
+                        return '當期票券';
+                    } else if (value.toUpperCase() === 'presale'.toUpperCase()) {
+                        return '預售票券';
+                    }
+                },
+                badgeBackground(data) {
+                    const self = this;
+                    return self.badgeBg[data];
+                },
+                connectAxios: function () {
+                    let self = this
+                    axios.get('/UserApi/ticketList').then(function (res) {
+                        self.dataset = res.data;
+                    })
+                },
+                goPage(data) {
+                    window.location.href = "/user/myTicketDetail/?TID=" + data
+                }
+            }
+        })
+    </script>
+
+} 

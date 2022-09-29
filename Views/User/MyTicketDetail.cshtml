@@ -1,0 +1,111 @@
+﻿
+@{
+    ViewBag.Title = "MyTicketDetail";
+}
+<div class="row main-content" style="min-height: 100vh">
+
+
+
+    <div class="col-md-10 rwd-mt p-5 content " id="contain">
+        <div class="row mb-3">
+            <div class="d-inline-block p-3">
+                <div class="row mb-3">
+                    <div class="col-md-4 mb-1">
+                        <p class="mb-2" style="color:gray;"> 展覽名稱 </p>
+                        <h4 class="mb-4" style="color: #199aff"> {{ title }}</h4>
+                        <p class="mb-2" style="color:gray;"> 展覽期間 </p>
+                        <h4 class="mb-4">
+                            {{ exhibitionStart }} - {{ exhibitionEnd }}
+                        </h4>
+                    </div>
+                    <div class="col-md-8 mb-5">
+                        <p style="color: gray">QR code</p>
+                        <div id="qrcodeBox" class="d-flex justify-content-center"></div>
+                    </div>
+
+                    <div>{{content}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="/Scripts/jquery.qrcode.min.js"></script>
+
+<script>
+    new Vue({
+        el: '#contain',
+        data() {
+            return {
+                ticketId: "@ViewBag.TID",
+                ticketStatus: 'over',
+                title: '',
+                exhibitionStart: '',
+                exhibitionEnd: '',
+                imgUrl: '',
+                content: '',
+                QRCodeContent: '',
+                token : '',
+                dataset: [],
+            }
+        },
+        created() {
+            this.connectAxios();
+
+
+        },
+        mounted() {
+            // 放在 mounted 是因為 created 的 dom 還沒建立完畢
+
+
+        },
+        methods: {
+            CheckTicket(data) {
+                if (this.ticketStatus.toUpperCase() === 'over'.toUpperCase()) {
+                    return '逾期票券';
+                } else if (this.ticketStatus.toUpperCase() === 'now'.toUpperCase()) {
+                    return '當期票券';
+                } else if (this.ticketStatus.toUpperCase() === 'presale'.toUpperCase()) {
+                    return '預售票券';
+                }
+            },
+            badgeBackground() {
+                const self = this;
+                return self.badgeBg[self.ticketStatus];
+            },
+            createQRCode(data) {
+                document.getElementById('qrcodeBox').innerHTML = "";
+                $('#qrcodeBox').qrcode(data);
+            },
+
+            connectAxios: function () {
+                var self = this;
+                axios.get(`/UserApi/ticketdetail/?ticketId=${self.ticketId}`).then(function (res) {
+                    return res.data
+                }).then(function (res) {
+                    console.log(res)
+                    self.content = res.content
+                    self.title = res.name
+                    self.exhibitionStart = res.start
+                    self.exhibitionEnd = res.end
+                    self.token = res.token
+                    self.ticketId = res.ticketId
+                    let qrContent = {
+                        Id: self.ticketId,
+                        Token: self.token
+                    }
+                    self.QRCodeContent = qrContent
+                    self.createQRCode(JSON.stringify(qrContent));
+                })
+            },
+
+        }
+    })
+
+
+</script>
+
+
+

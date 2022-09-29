@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "_SideBarExhibitor";
+}
+
+<div class="sideBar col-md-2 d-flex flex-column flex-shrink-0 p-3 col-md-2 	d-none d-md-block"
+     style="background-color: white">
+    <a href="/Exhibitor" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+        <span class="fs-4 text-dark">參展商主頁</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+            <a href="/Exhibitor/showHostList" class="nav-link side-item">參加展覽</a>
+        </li>
+        <li>
+            <a href="/Exhibitor/NowApplying" class="nav-link side-item">已申請展覽列表</a>
+        </li>
+        <li>
+            <a href="/Exhibitor/ApplyHistory" class="nav-link side-item">參展紀錄</a>
+        </li>
+        <li>
+            <a href="/Exhibitor/EditExhibitor" class="nav-link side-item">個人資料</a>
+        </li>
+    </ul>
+</div>

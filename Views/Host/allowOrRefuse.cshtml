@@ -1,0 +1,389 @@
+﻿
+@{
+    ViewBag.Title = "allowOrRefuse";
+}
+
+@section    styles{
+    <style>
+        .fade {
+            opacity: 0;
+            -webkit-transition: none;
+            -o-transition: none;
+            transition: none;
+        }
+    </style>
+}
+
+<div class="row main-content" style="min-height: 100vh;" id="content">
+
+    <div class="w3-main w3-col m10 col-md-10 mx-auto">
+
+        <nav aria-label="breadcrumb" class="m-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/Host">首頁</a></li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a href="/host/ShowHostEvent">審核列表</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <a href="#">審核</a>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- 列表 -->
+
+        <div class="d-flex mb-3 justify-content-around">
+            <div class="d-inline-block col-6">
+                <h3 class="mx-2">審核列表</h3>
+            </div>
+            <div class="d-inline-block col-5 d-flex justify-content-end m-0 p-0">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                        條件選擇
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><button class="dropdown-item all" v-on:click="selectAllStatusList">全部</button></li>
+                        <li><button class="dropdown-item all" v-on:click="onlynull">未審核</button></li>
+                        <li><button class="dropdown-item useable" @@click="selectAllow()">已核准</button></li>
+                        <li><button class="dropdown-item outdate" @@click="selectReject()">已拒絕</button></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 分隔線 -->
+        <hr style=" border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
+
+        <!-- 列表 -->
+        <div class="col-md-11 mx-auto">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">名稱</th>
+                        <th scope="col">參展資訊</th>
+                        <th scope="col">申請時間</th>
+                        <th scope="col">核准</th>
+                        <th scope="col">拒絕</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(value,index) in dataset">
+                        <th scope="row">{{index+1}}</th>
+                        <td>{{value.name}}</td>
+                        <td>
+                            @*data-bs-toggle="modal" data-bs-target="#evinfoModal"*@
+                            <button type="button" class="btn btn-outline-primary" v-on:click="evinfoclick(value.id, value.name)">
+                                查看
+                            </button>
+                        </td>
+                        <td>{{value.createAt}}</td>
+                        <td>
+                            <button type="button" class="btn btn-outline-success bg-success text-white" data-bs-toggle="modal"
+                                    data-bs-target="#accepModal" v-on:click="whereiclick(value.id)" v-if="value.verify == true" disabled>
+                                核准
+                            </button>
+
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                    data-bs-target="#accepModal" v-on:click="whereiclick(value.id)" v-else-if="value.verify == null">
+                                核准
+                            </button>
+
+
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                    data-bs-target="#accepModal" v-on:click="whereiclick(value.id)" v-else disabled>
+                                核准
+                            </button>
+                        </td>
+
+                        <td>
+                            <button type="button" class="btn btn-outline-danger bg-danger text-white" data-bs-toggle="modal"
+                                    data-bs-target="#reject" v-on:click="whereiclick(value.id)" v-if="value.verify == false" disabled>
+                                拒絕
+                            </button>
+
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#reject" v-on:click="whereiclick(value.id)" v-else-if="value.verify == null">
+                                拒絕
+                            </button>
+
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#reject" v-on:click="whereiclick(value.id)" v-else disabled>
+                                拒絕
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal exhibitinfo -->
+    <div class="modal" id="evinfoModal" tabindex="-1" aria-labelledby="evinfoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="evinfoModalLabel">參展資訊</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="text-center">廠商名稱：{{exhibitinfo.name}}</h2>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <div style="">
+                                <img :src=`/Image/Exhibitor/${exhibitinfo.image}` alt="" style="width: 100%; max-height: 250px; object-fit:contain; ">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <div class="fs-4 mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+                                        <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1.002 1.002 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4.018 4.018 0 0 1-.128-1.287z" />
+                                        <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243L6.586 4.672z" />
+                                    </svg>
+                                    相關連結
+                                </div>
+                                <a :href="exhibitinfo.link" class="btn btn-primary">前往連結</a>
+                            </div>
+                            <div class="mt-3">
+                                <div class="fs-4 mb-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle-fill" viewBox="0 0 16 16">
+                                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+                                    </svg>
+                                    參展資訊
+                                </div>
+                                <p>{{exhibitinfo.productinfo}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">確定</button>
+                </div>
+            </div>>
+        </div>
+    </div>
+
+    <!-- Modal accep -->
+    <div class="modal" id="accepModal" tabindex="-1" aria-labelledby="accepModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accepModalLabel">核准</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    確定要允許加入展覽嗎？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="decide(1)">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal reject -->
+    <div class="modal" id="reject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">拒絕</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" placeholder="輸入不核准理由" v-model="reasonStr" id="reason5">
+                    <div style="display: flex; flex-flow: wrap row; flex-direction: row; margin: 10px;">
+
+                        <div class="form-check" style="margin-right: 25px">
+                            <input class="form-check-input" type="radio" v-model="reasonStr" id="reason1" name="reason1" value="展覽別不同">
+                            <label class="form-check-label" for="reason1">展覽別不同</label>
+                        </div>
+
+                        <div class="form-check" style="margin-right: 25px">
+                            <input class="form-check-input" type="radio" v-model="reasonStr" id="reason2" name="reason2" value="圖片不符">
+                            <label class="form-check-label" for="reason2">圖片不符</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" v-model="reasonStr" id="reason3" name="reason3" value="名稱不適當">
+                            <label class="form-check-label" for="reason3">名稱不適當</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" v-model="reasonStr" id="reason4" name="reason4" value="未輸入詳細資訊">
+                            <label class="form-check-label" for="reason4">未輸入詳細資訊</label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" v-on:click="decide(2)">確定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal loading -->
+    <div class="modal fade" v-if="isShow" id="loadingModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <button type="button" class="btn-close d-none" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">請稍後</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var content = new Vue({
+        el: '#content',
+        data() {
+            return {
+                dataset: [
+                ],
+                clickdata: '',
+                reasonStr: '',
+                isShow: false ,
+                evid: "@ViewBag.EVID",
+                exhibitinfo: {},
+            }
+        },
+        created: function () {
+            this.selectAllStatusList();
+        },
+        methods: {
+            whereiclick(id) {
+                this.clickdata = id;
+            },
+            async evinfoclick(id, ename) {
+                let self = this;
+
+                await axios.post('/HostApi/getExhibitInfo/?id=' + id).then(function (res) {
+                    console.log(res.data);
+                    self.exhibitinfo = res.data;
+                    self.exhibitinfo.name = ename;
+                    console.log(self.exhibitinfo);
+
+                    let loadModal = $('#evinfoModal');
+                    loadModal.modal('show');
+                })
+            },
+
+            onlynull() {
+                console.log("pokemon f");
+                let self = this;
+
+                axios.get('/HostApi/exhibitInfo_AllowOrRefuse/?EVID=' + self.evid).then(function (res) {
+                    self.dataset = res.data;
+                })
+            },
+
+              selectAllStatusList() {
+                console.log("pokemon f");
+                let self = this;
+                  axios.get('/HostApi/selectorAllStatusList/?EVID=' + self.evid).then(function (res) {
+                    self.dataset = res.data;
+                })
+            },
+
+
+            selectAllow() {
+                console.log("pokemon f");
+                let self = this;
+                axios.get('/HostApi/selectorAllow/?EVID=' + self.evid).then(function (res) {
+                    self.dataset = res.data;
+                })
+            },
+
+
+            selectReject() {
+                console.log("pokemon g");
+                let self = this;
+                axios.get('/HostApi/selectorReject/?EVID=' + self.evid).then(function (res) {
+                    self.dataset = res.data;
+                })
+            },
+
+            decide: function (index) {
+                let self = this;
+
+                self.isShow = true;
+                console.log(index);
+
+                if (index == 1) {
+                    console.log("allow");
+                    axios.post('/HostApi/AllowOrRefuse', {
+                        index: self.clickdata,
+                        verified: true,
+                        status: "允許",
+                    })
+                        .then((response) => self.selectAllStatusList() )
+                        .catch((error) => console.log(error))
+
+                    console.log('test')
+                    let loadModal = $('#accepModal');
+                    let loadModal2 = $('#reject');
+                    loadModal.modal('hide');
+                    loadModal2.modal('hide');
+                    self.isShow = false;
+
+                } else {
+                    console.log("reject");
+                    this.whyRejected();
+                    axios.post('/HostApi/AllowOrRefuse', {
+                        index: self.clickdata,
+                        verified: false,
+                        reason: self.reasonStr,
+                        status: "拒絕",
+                    })
+                        .then((response) => self.selectAllStatusList() )
+                        .catch((error) => console.log(error))
+
+                    console.log('test')
+                    let loadModal = $('#exampleModal');
+                    let loadModal2 = $('#reject');
+                    loadModal.modal('hide');
+                    loadModal2.modal('hide');
+                    self.isShow = false;
+                }
+            },
+            whyRejected() {
+
+                var rea1 = document.getElementsByName("reason1");
+                var rea2 = document.getElementsByName("reason2");
+                var rea3 = document.getElementsByName("reason3");
+                var rea4 = document.getElementsByName("reason4");
+                var rea5 = document.getElementById("reason5").value;
+
+                var a = "";
+
+
+                if (rea1[0].checked) a = rea1[0].value + " ";
+                if (rea2[0].checked) a = rea2[0].value + " ";
+                if (rea3[0].checked) a = rea3[0].value + " ";
+                if (rea4[0].checked) a = rea4[0].value + " ";
+                a = rea5 + " ";
+
+                this.reasonStr = a;
+
+
+                console.log(a);
+            }
+
+
+
+
+        }
+    })
+
+
+
+    Vue.config.devtools = true;
+
+
+</script>

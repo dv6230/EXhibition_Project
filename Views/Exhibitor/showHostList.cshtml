@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "showHostList";
+}
+
+<body>
+
+
+    <div class="w3-main col mt-3 p-5 table-responsive" id="contain">
+
+        <div class="row mb-3 " style="border-bottom: 2px solid black; padding-bottom: 20px;">
+            <div class="d-inline-block w-50">
+                <h3>展覽列表</h3>
+            </div> 
+        </div>
+
+        <table class="table align-middle table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">名稱</th>
+                    <th scope="col">地址</th>
+                    <th scope="col">開始時間</th>
+                    <th scope="col">結束時間</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="data in eventList">
+                    <td class="d-none col">{{data.EVID}}</td>
+                    <td class="col">{{data.name}}</td>
+                    <td class="col">{{data.venue}}</td>
+                    <td class="col">{{data.startdate}}</td>
+                    <td class="col">{{data.enddate}}</td>
+                    <td class="col">
+                        <a :href= "'./showEventDetail/?EVID=' + data.EVID" role="button" class="btn btn-outline-success m-1">展覽細節</a>
+                        <a :href= "'./createEventInfo/?EVID=' + data.EVID" role="button" class="btn btn-outline-danger m-1">申請參展</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#contain',
+            data() {
+                return {
+                    eventList: {},
+                }
+            },
+            created: function () {
+
+                this.getEvents()
+                
+            },
+            methods: {
+                getEvents() {
+                    const self = this;
+
+                    axios.post('@Url.Content("~/ExhibitorApi/CanApplyList")').then(function (response) {
+
+                        if (response.data.status === "success") {
+                            self.eventList = response.data.data;
+
+                        } else {
+                            alert(response.data.message);
+                        }                        
+                    })
+                }
+            },
+        })
+    </script>
+
+
+
+</body>

@@ -1,0 +1,549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{20120646-D7E6-45EB-B137-F22F937D29DE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EXhibition</RootNamespace>
+    <AssemblyName>EXhibition</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44378</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PayPalCheckoutSdk, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\PayPalCheckoutSdk.1.0.4\lib\netstandard2.0\PayPalCheckoutSdk.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPalHttp-Dotnet, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\PayPalHttp.1.0.1\lib\netstandard2.0\PayPalHttp-Dotnet.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.Cors.5.2.7\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.Cors.5.2.7\lib\net45\System.Web.Http.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\BundleConfig2.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ExhibitorApiController.cs" />
+    <Compile Include="Controllers\ExhibitorController.cs" />
+    <Compile Include="Controllers\HomeApiController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HostApiController.cs" />
+    <Compile Include="Controllers\HostController.cs" />
+    <Compile Include="Controllers\HostsController.cs" />
+    <Compile Include="Controllers\OtherController.cs" />
+    <Compile Include="Controllers\PartViewController.cs" />
+    <Compile Include="Controllers\QRCodeAccessController.cs" />
+    <Compile Include="Controllers\ShopApiController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\UserApiController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Filters\AuthorizeFilter .cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\ApplyList.cs" />
+    <Compile Include="Models\AuditExhibitorInfo.cs" />
+    <Compile Include="Models\CartItem.cs" />
+    <Compile Include="Models\CROS.cs" />
+    <Compile Include="Models\DBConnector.cs" />
+    <Compile Include="Models\EventDetail.cs" />
+    <Compile Include="Models\events.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\eventTags.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\exhibitinfo.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Exhibition.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Exhibition.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Exhibition.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Exhibition.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Exhibition.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\exhibitors.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\forgetPassword.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\GlobalVariables.cs" />
+    <Compile Include="Models\HostEventInfo.cs" />
+    <Compile Include="Models\hosts.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\LoginToken.cs" />
+    <Compile Include="Models\NewJsonResult.cs" />
+    <Compile Include="Models\orderDetail.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\orders.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PartView\CommonParam.cs" />
+    <Compile Include="Models\PartView\HostNavbarParam.cs" />
+    <Compile Include="Models\PartView\ExhibitiorNavbarParam.cs" />
+    <Compile Include="Models\PartView\UserNavbarParam.cs" />
+    <Compile Include="Models\QRCodeLoginToken.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\request_log.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ReturnData.cs" />
+    <Compile Include="Models\SearchSelect.cs" />
+    <Compile Include="Models\SHA_256.cs" />
+    <Compile Include="Models\TagsName.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TicketPreview.cs" />
+    <Compile Include="Models\Tickets.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TicketToken.cs" />
+    <Compile Include="Models\users.cs">
+      <DependentUpon>Exhibition.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repo\AuthorizeOrder.cs" />
+    <Compile Include="Repo\CheckOutRepo.cs" />
+    <Compile Include="Repo\BuildPayPalOrder.cs" />
+    <Compile Include="Repo\HostDashboard.cs" />
+    <Compile Include="Repo\PayPalClient.cs" />
+    <Compile Include="Repo\SendResetEmailRepo.cs" />
+    <Compile Include="Repo\TagsInsert.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\ApplyHistory.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.rtl.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.rtl.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.rtl.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.rtl.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.css" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.rtl.css" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.rtl.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.css" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.rtl.css" />
+    <Content Include="Content\Bootstrap\bootstrap.rtl.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap5.0.2.min.css" />
+    <Content Include="Content\eventDetail.css" />
+    <Content Include="Content\footer.css" />
+    <Content Include="Content\Index-part1.css" />
+    <Content Include="Content\Index-part2.css" />
+    <Content Include="Content\myLogin.css" />
+    <Content Include="Content\myTicketList.css" />
+    <Content Include="Content\navbar.css" />
+    <Content Include="Content\Login\userLogin.css" />
+    <Content Include="Content\NowApplying.css" />
+    <Content Include="Content\ShoppingCart.css" />
+    <Content Include="Content\showHostList.css" />
+    <Content Include="Content\TagModal.css" />
+    <Content Include="Content\Template\dashboard-sidebar.css" />
+    <Content Include="Content\UserEventDetail.css" />
+    <Content Include="Content\w3.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Image\Dev\Art lover-rafiki.png" />
+    <Content Include="Image\Dev\Art lover-rafiki.svg" />
+    <Content Include="Image\Dev\exhibition.jpg" />
+    <Content Include="Image\Dev\exhibition_2.jpg" />
+    <Content Include="Image\Dev\Register-user.png" />
+    <Content Include="Image\Dev\Register-host.png" />
+    <Content Include="Image\Dev\Register-exhibitor.png" />
+    <Content Include="Image\Dev\login-bro-host.png" />
+    <Content Include="Image\Dev\login-bro-user.png" />
+    <Content Include="Image\Exhibitor\Ecommerce-campaign-cuate.png" />
+    <Content Include="Image\Exhibitor\EVinfo_EVID26_EID10_.png" />
+    <Content Include="Image\Host\EditHost.png" />
+    <Content Include="Image\Host\EV_UID2_220326_220327.png" />
+    <Content Include="Image\Host\EV_UID2_220329_220331.png" />
+    <Content Include="Image\Host\EV_UID2_220330_220331.png" />
+    <Content Include="Image\Host\EV_UID2_220330_220406.png" />
+    <Content Include="Image\Host\EV_UID2_220331_220408.png" />
+    <Content Include="Image\Host\EV_UID2_220401_220402.png" />
+    <Content Include="Image\Host\EV_UID2_220401_220403.png" />
+    <Content Include="Image\Host\EV_UID2_220401_220405.png" />
+    <Content Include="Image\Host\EV_UID2_220401_220421.png" />
+    <Content Include="Image\Host\EV_UID2_220402_220405.png" />
+    <Content Include="Image\Host\EV_UID2_220422_220531.png" />
+    <Content Include="Image\Host\EV_UID32_220409_220413.png" />
+    <Content Include="Image\Host\FP_UID2_220326_220327.png" />
+    <Content Include="Image\Host\FP_UID2_220329_220331.png" />
+    <Content Include="Image\Host\FP_UID2_220330_220331.png" />
+    <Content Include="Image\Host\FP_UID2_220330_220406.png" />
+    <Content Include="Image\Host\FP_UID2_220331_220408.png" />
+    <Content Include="Image\Host\FP_UID2_220401_220402.png" />
+    <Content Include="Image\Host\FP_UID2_220401_220403.png" />
+    <Content Include="Image\Host\FP_UID2_220401_220405.png" />
+    <Content Include="Image\Host\FP_UID2_220401_220421.png" />
+    <Content Include="Image\Host\FP_UID2_220402_220405.png" />
+    <Content Include="Image\Host\FP_UID2_220422_220531.png" />
+    <Content Include="Image\Host\FP_UID32_220409_220413.png" />
+    <Content Include="Image\Host\Host_img_HID2.png" />
+    <Content Include="Image\Host\pexels-photo-10147530.jpeg" />
+    <Content Include="Image\Test\eighty-six.png" />
+    <Content Include="Image\Test\fruit01.png" />
+    <Content Include="Image\Test\hakase.jpg" />
+    <Content Include="Image\Test\reZero.png" />
+    <Content Include="Image\Test\tea01.png" />
+    <Content Include="Image\Test\world-Porsche.jpg" />
+    <Content Include="Models\Exhibition.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Exhibition.Context.cs</LastGenOutput>
+      <DependentUpon>Exhibition.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\Exhibition.edmx.sql" />
+    <Content Include="Models\Exhibition.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Exhibition.edmx</DependentUpon>
+      <LastGenOutput>Exhibition.cs</LastGenOutput>
+    </Content>
+    <EntityDeploy Include="Models\Exhibition.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Exhibition.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Exhibition.edmx.diagram">
+      <DependentUpon>Exhibition.edmx</DependentUpon>
+    </Content>
+    <Content Include="Image\Icon\list.svg" />
+    <Content Include="Models\說明.txt" />
+    <Content Include="Scripts\axios.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.bundle.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.bundle.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.esm.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.esm.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.min.js.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap.js.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap.esm.min.js.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap.esm.js.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\Bootstrap\bootstrap.bundle.js.map" />
+    <Content Include="Content\Bootstrap\bootstrap.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.rtl.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.rtl.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-utilities.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.rtl.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.rtl.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.rtl.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.css.map" />
+    <Content Include="Scripts\home.json" />
+    <None Include="Scripts\JQuery\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery.qrcode.min.js" />
+    <Content Include="Scripts\JQuery\jquery-3.4.1.js" />
+    <Content Include="Scripts\JQuery\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\JQuery\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\JQuery\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\JQuery\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\JQuery\jquery.validate.js" />
+    <Content Include="Scripts\JQuery\jquery.validate.min.js" />
+    <Content Include="Scripts\JQuery\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\JQuery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\PartView\navbar.js" />
+    <Content Include="Scripts\Vue.js" />
+    <Content Include="Image\Dev\login-bro-exhibitor.png" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\getEnv.cshtml" />
+    <Content Include="Views\Home\dbTest.cshtml" />
+    <Content Include="Views\PartView\_NavbarVisitor.cshtml" />
+    <Content Include="Views\Home\LoginExample.cshtml" />
+    <Content Include="Views\Home\dbTest.cshtml" />
+    <Content Include="Views\hosts\Create.cshtml" />
+    <Content Include="Views\hosts\Delete.cshtml" />
+    <Content Include="Views\hosts\Details.cshtml" />
+    <Content Include="Views\hosts\Edit.cshtml" />
+    <Content Include="Views\hosts\Index.cshtml" />
+    <Content Include="Views\hosts\EditEvent.cshtml" />
+    <Content Include="Views\hosts\publicVersion.cshtml" />
+    <Content Include="Views\PartView\_NavbarUser.cshtml" />
+    <Content Include="Views\hosts\CreateEvent.cshtml" />
+    <Content Include="Views\hosts\EditHost1.cshtml" />
+    <Content Include="Views\Home\UserLogin.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Home\HostLogin.cshtml" />
+    <Content Include="Views\PartView\_SideBarUserBtn.cshtml" />
+    <Content Include="Views\PartView\_SideBarHostBtn.cshtml" />
+    <Content Include="Views\PartView\_SideBarExhibitorBtn.cshtml" />
+    <Content Include="Views\Home\ExhibitorLogin.cshtml" />
+    <Content Include="Views\Shared\_DashboardLayout.cshtml" />
+    <Content Include="Views\PartView\_NavbarHost.cshtml" />
+    <!--<Content Include="Views\hosts\展覽列表.cshtml" />-->
+    <Content Include="Views\User\MyTicketList.cshtml" />
+    <Content Include="Views\Host\CreateEvent.cshtml" />
+    <Content Include="Views\Host\publicVersion.cshtml" />
+    <Content Include="Views\Home\RegisterHost.cshtml" />
+    <Content Include="Views\Home\RegisterExhibitor.cshtml" />
+    <Content Include="Views\Home\RegisterUser.cshtml" />
+    <Content Include="Views\Exhibitor\Index.cshtml" />
+    <Content Include="Views\Host\Index.cshtml" />
+    <Content Include="Views\PartView\_NavbarExhibitor.cshtml" />
+    <Content Include="Views\PartView\_SideBarExhibitor.cshtml" />
+    <Content Include="Views\PartView\_SideBarHost.cshtml" />
+    <Content Include="Views\PartView\_SideBarUser.cshtml" />
+    <Content Include="Views\User\MyTicketDetail.cshtml" />
+    <Content Include="Views\Host\DetailsHost.cshtml" />
+    <Content Include="Views\Host\EventDetail.cshtml" />
+    <Content Include="Views\User\ScanLoginQRCode.cshtml" />
+    <Content Include="Views\Shop\Index.cshtml" />
+    <Content Include="Views\Shop\Shopcart.cshtml" />
+    <Content Include="Views\PartView\_Footer.cshtml" />
+    <Content Include="Views\Exhibitor\showHostList.cshtml" />
+    <Content Include="Views\Exhibitor\CanApplyList.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\Host\EditHostInfo.cshtml" />
+    <Content Include="Views\Host\ShowHostEvent.cshtml" />
+    <!-- <Content Include="Views\Host\EditHost.cshtml" /> -->
+    <Content Include="Views\Exhibitor\showHostList.cshtml" />
+    <!-- <Content Include="Views\Exhibitor\eventDetail.cshtml" /> -->
+    <Content Include="Views\Shop\CheckoutSuccess.cshtml" />
+    <Content Include="Views\Shop\Product.cshtml" />
+    <Content Include="Views\Host\CheckTicket.cshtml" />
+    <Content Include="Views\Exhibitor\NowApplying.cshtml" />
+    <Content Include="Views\Exhibitor\EventHistory.cshtml" />
+    <Content Include="Views\Exhibitor\EditExhibitor.cshtml" />
+    <Content Include="Views\Home\DenyAuthorize.cshtml" />
+    <Content Include="Views\Host\allowOrRefuse.cshtml" />
+    <Content Include="Views\Home\EventDetail.cshtml" />
+    <Content Include="Views\Exhibitor\showEventDetail.cshtml" />
+    <Content Include="Views\Exhibitor\ApplyHistory.cshtml" />
+    <Content Include="Views\Host\EditEventInfo.cshtml" />
+    <Content Include="Views\Exhibitor\createEventInfo.cshtml" />
+    <Content Include="Views\User\ConsumingRecords.cshtml" />
+    <Content Include="Views\Home\HostForgetPassword.cshtml" />
+    <Content Include="Views\Home\SendEmail.cshtml" />
+    <Content Include="Views\Home\ExhibitorForgetPassword.cshtml" />
+    <Content Include="Views\Home\UserForgetPassword.cshtml" />
+    <Content Include="Views\Home\ResetPassword.cshtml" />
+    <Content Include="Views\Home\ResetPasswordSuccess.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Data\" />
+    <Folder Include="Views\ExhibitorApi\" />
+    <Folder Include="Views\HomeApi\" />
+    <Folder Include="Views\Shopping\" />
+    <Folder Include="Views\UserApi\" />
+    <Folder Include="Views\UsersApi\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\JQuery\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\JQuery\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>12785</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44378/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>此專案參考這部電腦上所缺少的 NuGet 套件。請啟用 NuGet 套件還原，以下載該套件。如需詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的檔案是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+      Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
