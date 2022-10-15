@@ -147,6 +147,11 @@ namespace EXhibition.Repo
                 .Select(e => new { id = e.Key, count = e.Count() })
                 .OrderByDescending(e => e.count).Select(e => e.id).FirstOrDefault();
 
+            if (eventId == 0)
+            {
+                return "";
+            }
+
             return db.events.Find(eventId).name;
         }
 
@@ -167,7 +172,6 @@ namespace EXhibition.Repo
         }
         public string GetHotUserTag(int accountId)
         {
-
             var now = DateTime.Now;
 
             var query = (from tk in db.Tickets
@@ -183,9 +187,14 @@ namespace EXhibition.Repo
                 Where(e => eventIdArray.Contains(e.EVID)).
                 GroupBy(e => e.tagID).
                 Select(e => new { id = e.Key, count = e.Count() }).
-                OrderByDescending(e => e.count).Select(e=>e.id).FirstOrDefault();
+                OrderByDescending(e => e.count).Select(e => e.id).FirstOrDefault();
 
-            return db.TagsName.Find(tagId).tagName;
+            var tag = db.TagsName.Find(tagId);
+            if (tag != null)
+            {
+                return tag.tagName;
+            }
+            return "";
         }
 
     }

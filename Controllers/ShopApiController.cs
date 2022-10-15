@@ -79,6 +79,13 @@ namespace EXhibition.Controllers
             }
 
             eventlist = db.events.Where(item => eventIdList.Contains(item.EVID)).ToList();
+
+            if (eventlist.Count < 4)
+            {
+                var list = db.events.Where(x => eventIdList.Contains(x.EVID) == false).OrderByDescending(x => x.startdate).Take(4 - eventlist.Count).ToList();
+                eventlist.AddRange(list);
+            }
+
             foreach (var item in eventlist)
             {
                 item.image = "/image/host/" + item.image;
@@ -245,7 +252,8 @@ namespace EXhibition.Controllers
 
             mEventDetail.exhibitorList = (from eInfo in db.exhibitinfo
                                           join eData in db.exhibitors on eInfo.EID equals eData.EID
-                                          where eInfo.EVID == id where eInfo.verify == true
+                                          where eInfo.EVID == id
+                                          where eInfo.verify == true
                                           select new Models.ExhibitorsInfo
                                           {
                                               EID = eInfo.EID,
@@ -253,7 +261,7 @@ namespace EXhibition.Controllers
                                               image = eInfo.image
                                           }).ToList();
 
-            mEventDetail.tagList = (from tg in db.eventTags join tn in db.TagsName on tg.tagID equals tn.id where tg.EVID == id select tn.tagName ).ToList();
+            mEventDetail.tagList = (from tg in db.eventTags join tn in db.TagsName on tg.tagID equals tn.id where tg.EVID == id select tn.tagName).ToList();
 
             foreach (var item in mEventDetail.exhibitorList)
             {

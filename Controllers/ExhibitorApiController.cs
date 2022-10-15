@@ -256,7 +256,7 @@ namespace EXhibition.Controllers
         {
             ReturnData rd = new ReturnData();
 
-            DateTime applydate = DateTime.Now.AddDays(+5);
+            DateTime applydate = DateTime.Now;
 
             int exhibitorId = (int)(Session[Models.GlobalVariables.AccountId] == null ? 2 : Session[Models.GlobalVariables.AccountId]);
 
